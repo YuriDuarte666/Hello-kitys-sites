@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Localização Hello Kitty</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffd1dc, #ffe6ec);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+      color: #d63384;
+    }
+    .card {
+      background: white;
+      border: 3px solid #ff69b4;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+      padding: 30px;
+      display: inline-block;
+    }
+    .hello-kitty {
+      width: 100px;
+      margin: 10px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Localização da Hello Kitty</h1>
+  <div class="card">
+    <p id="status">Carregando localização...</p>
+    <p id="location"></p>
+  </div>
+  <div>
+    <img class="hello-kitty" src="kitty1.png" />
+    <img class="hello-kitty" src="kitty2.png" />
+    <img class="hello-kitty" src="kitty3.png" />
+    <img class="hello-kitty" src="kitty4.png" />
+  </div>
+  <script>
+    function showLocation(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      document.getElementById('status').textContent = "Localização detectada:";
+      document.getElementById('location').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+    }
+
+    function showError(error) {
+      document.getElementById('status').textContent = "Não foi possível obter sua localização.";
+      document.getElementById('location').textContent = `Erro: ${error.message}`;
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showLocation, showError);
+    } else {
+      document.getElementById('status').textContent = "Geolocalização não suportada pelo navegador.";
+    }
+  </script>
+</body>
+</html>
